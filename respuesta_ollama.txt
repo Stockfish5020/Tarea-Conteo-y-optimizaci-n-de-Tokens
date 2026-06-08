@@ -1,0 +1,102 @@
+# ARQUITECTURA DE SISTEMAS MULTI-AGENTE: SYNTHESIS ENGINE
+
+## PARTE 1: INVENCIÓN DEL PROYECTO
+
+**Nombre del Proyecto:** Cross-Domain Predictive Synthesis Engine (CDPSE)
+
+**Descripción:** El CDPSE es un sistema de análisis avanzado diseñado para predecir tendencias complejas en mercados o fenómenos sociales, utilizando datos provenientes de dominios semánticos completamente dispares. En lugar de simplemente calcular el sentimiento general, el sistema identifica **correlaciones causales ocultas**. Por ejemplo, correlacionar picos de actividad académica sobre un tema (papers científicos) con cambios en la cobertura mediática y sus efectos subsecuentes en las acciones bursátiles relacionadas. El resultado es un *módulo predictivo* funcional e integrado listo para ser consumido por una plataforma de decisiones.
+
+**Desafío:** No solo se requiere saber qué dicen los datos, sino entender *por qué* están correlacionados y generar el código necesario para modelar esa relación predectiva.
+
+***
+
+## PARTE 2: DISEÑO DE LOS AGENTES
+
+Para gestionar la complejidad del ciclo (Ingesta $\rightarrow$ Semántica $\rightarrow$ Codificación $\rightarrow$ Validación $\rightarrow$ Integración), se requieren cinco agentes especializados con roles de alta autonomía y comunicación estricta.
+
+### Agente A: Acquisición de Datos (The Gatherer)
+* **Rol principal:** Recolectar, normalizar y estructurar datos brutos desde fuentes heterogéneas e inconsistentes.
+* **Responsabilidades detalladas:**
+    1. Implementar conectores API para múltiples fuentes (Twitter/X, Feeds RSS, Bases de Datos Científicas como arXiv).
+    2. Realizar la limpieza inicial de datos, eliminando ruido estructural y metadatos irrelevantes.
+    3. Estandarizar formatos temporales y geográficos del corpus masivo de entrada.
+    4. Generar un *Manifiesto de Fuentes* que detalla el origen y volumen de cada lote de datos.
+* **Herramientas o librerías:** Python, `Requests`, `BeautifulSoup`, Librerías específicas de API (e.g., Tweepy/SciPy).
+* **Comunicación:** Recibe trabajo del *Usuario (Input)*. Envía el corpus masivo y estructurado a **Agente B**.
+
+### Agente B: Análisis Semántico (The Interpreter)
+* **Rol principal:** Transformar el texto plano en vectores de significado, identificando entidades clave, temas emergentes y polaridad semántica profunda.
+* **Responsabilidades detalladas:**
+    1. Ejecutar Procesamiento de Lenguaje Natural (NLP) avanzado para identificar Nombres Propios, Entidades Geográficas y Temas Centrales.
+    2. Calcular la polaridad del sentimiento no solo por palabras clave, sino por contexto sintáctico completo.
+    3. Detectar patrones emergentes (Topic Modeling - como LDA o BERTopic) en el corpus de texto.
+    4. Generar un *Mapa de Características Semánticas*, que son pares de entidades correlacionadas con puntuaciones de fuerza semántica.
+* **Herramientas o librerías:** Python, `spaCy`, `NLTK`, Modelos Transformer (e.g., BERT), Librerías de Machine Learning para Topic Modeling.
+* **Comunicación:** Recibe el corpus limpio y estructurado de **Agente A**. Devuelve un Mapa de Características Semánticas detallado a **Agente C**.
+
+### Agente C: Generador de Código Predictivo (The Coder)
+* **Rol principal:** Tomar los patrones semánticos identificados y generar módulos de código funcional, listo para hacer predicciones o análisis estadístico.
+* **Responsabilidades detalladas:**
+    1. Interpretar el *Mapa de Características Semánticas* e identificar la mejor arquitectura predictiva (regresión, clasificación, etc.).
+    2. Generar el esqueleto del código en un lenguaje objetivo (e.g., Python/Pandas) que implemente el modelo estadístico.
+    3. Documentar exhaustivamente el propósito del módulo y las variables de entrada esperadas.
+    4. Crear una versión inicial del código, encapsulada como un submódulo independiente.
+* **Herramientas o librerías:** Modelos LLM avanzados (GPT-4/Claude), Estructuras de Programación Orientada a Objetos, Librerías estadísticas (`Scikit-learn`, `Statsmodels`).
+* **Comunicación:** Recibe el Mapa de Características Semánticas de **Agente B**. Envía un Módulo de Código inicial y su documentación asociada a **Agente D**.
+
+### Agente D: Validador y Tester (The Quality Assurance)
+* **Rol principal:** Probar rigurosamente la funcionalidad, robustez y rendimiento del código generado por el agente C.
+* **Responsabilidades detalladas:**
+    1. Generar automáticamente un conjunto de pruebas unitarias (`pytest`) cubriendo casos nominales, límites y bordes (edge cases).
+    2. Ejecutar las pruebas contra el Módulo de Código recibido en un entorno simulado.
+    3. Si hay fallos, identificar la causa raíz (ya sea lógica o de implementación) y devolver retroalimentación específica a **Agente C**.
+    4. Generar un *Informe de Validación* que certifique la funcionalidad del código.
+* **Herramientas o librerías:** `Pytest`, `Mocks`, Contenedores Docker (para aislamiento de entorno), Análisis estático de código (`Pylint`).
+* **Comunicación:** Recibe el Módulo de Código y su documentación de **Agente C**. Devuelve el Módulo de Código validado, junto con el Informe de Validación, a **Agente E**.
+
+### Agente E: Integrador y Sintetizador (The Architect)
+* **Rol principal:** Ensamblar todos los componentes validados en un sistema predictivo coherente, generando la interfaz final y las conclusiones narrativas.
+* **Responsabilidades detalladas:**
+    1. Recibir el código validado de Agente D e integrarlo en una arquitectura completa (ej., creando clases principales o un *Pipeline* de datos).
+    2. Ejecutar pruebas de integración para asegurar que los módulos interactúen sin conflictos.
+    3. Generar la capa de presentación: visualizar las predicciones y redactar el informe ejecutivo final explicando las correlaciones detectadas.
+    4. Proporcionar documentación completa del *Sistema Final*.
+* **Herramientas o librerías:** Frameworks web (Flask/Django), Librerías de visualización (`Matplotlib`, `Plotly`), Procesadores de Lenguaje Natural para síntesis de texto final.
+* **Comunicación:** Recibe el código validado y el informe de D desde **Agente D**. Presenta el resultado final al *Usuario*.
+
+***
+
+## PARTE 3: FLUJO DE TRABAJO (The Pipeline)
+
+El proceso es un flujo secuencial con bucles de retroalimentación críticos para la calidad del producto.
+
+**Paso 1: Iniciación y Acquisición (Usuario $\rightarrow$ A)**
+El usuario ingresa el mandato ("Analizar correlaciones semánticas entre noticias académicas sobre IA y volatilidad bursátil en los próximos 3 meses"). El **Agente A** se activa, conectándose a APIs de fuentes científicas y financieras. Recopila un gran volumen de datos brutos (texto, fechas, valores).
+
+**Paso 2: Interpretación Semántica (A $\rightarrow$ B)**
+El corpus limpio es enviado al **Agente B**. Este agente procesa el texto masivo mediante NLP avanzado, no solo contando palabras, sino entendiendo la relación gramatical entre "IA" y "regulación", o entre "papers de energía verde" y "acciones energéticas". Produce un *Mapa de Características Semánticas* (ej: {Evento A: Polaridad +0.8; Entidad B: Correlación alta con Evento A}).
+
+**Paso 3: Codificación del Modelo (B $\rightarrow$ C)**
+El **Agente C** recibe el Mapa de Características y determina que la relación entre estas variables requiere un modelo de regresión logística o ARIMA. Genera automáticamente el código Python necesario para implementar esa predicción, junto con su documentación técnica. Este módulo es inherentemente incompleto sin prueba.
+
+**Paso 4: Validación (C $\rightarrow$ D)**
+El **Agente D** toma el Módulo de Código y genera un conjunto riguroso de pruebas unitarias (*Test Suite*). Ejecuta esta suite contra el código en un entorno aislado.
+*   **Ruta Feliz:** Si las pruebas pasan, emite el *Informe de Validación*.
+*   **Bucle de Fallo (CRÍTICO):** Si una prueba falla (ej: el modelo colapsa con datos nulos), **D** no falla; genera un informe detallado y lo devuelve a **C**. El **Agente C** lee la causa del fallo, modifica su código original, e inicia nuevamente el ciclo de validación en **D**, hasta que se cumpla el criterio de cobertura de pruebas.
+
+**Paso 5: Integración y Presentación (D $\rightarrow$ E)**
+Una vez que el código es certificado como robusto por **Agente D**, el *Módulo Validado* se envía al **Agente E**. Este agente ensambla la aplicación completa, creando una clase maestra `PredictionEngine` donde el módulo de C/D reside. Ejecuta pruebas finales de integración (asegurándose de que el flujo completo funcione). Finalmente, sintetiza los resultados en un informe ejecutivo comprensible para el usuario final: "Basado en la alta correlación detectada entre [Tema X] y [Variable Y], prevemos una tendencia alcista..."
+
+***
+
+## PARTE 4: JUSTIFICACIÓN DE LA CANTIDAD DE AGENTES
+
+Elegí **cinco agentes** porque el problema que se plantea (codificar, probar e integrar un sistema complejo) es un proceso de ingeniería que requiere la separación estricta de responsabilidades para manejar la complejidad y minimizar los errores catastróficos.
+
+### ¿Por qué no menos?
+Si intentara combinar las funciones del **Agente B** (Semántica) con el **Agente C** (Codificación), se crearía un riesgo monumental: el código generado podría ser semánticamente erróneo, implementando una fórmula matemática correcta pero basada en una interpretación falaz de la realidad. La separación garantiza que el *significado* se valide antes de que el *código* sea escrito.
+
+### ¿Por qué no más?
+Agregar más agentes para tareas muy pequeñas (ej: un agente solo para escribir comentarios de código) introduciría sobrecarga, latencia y habría poco impacto funcional en el resultado final del sistema predictivo. Los cinco roles definidos cubren las etapas funcionales esenciales del ciclo de vida del desarrollo de software avanzado (Adquisición $\rightarrow$ Entendimiento $\rightarrow$ Creación $\rightarrow$ Verificación $\rightarrow$ Ensamblaje).
+
+**Conclusión:** La arquitectura es un reflejo directo del proceso de ingeniería de alta fiabilidad. Cada agente actúa como un *checkpoint* crítico, asegurando que el artefacto pase por filtros especializados (semántica, sintaxis y lógica) antes de pasar al siguiente nivel de complejidad.

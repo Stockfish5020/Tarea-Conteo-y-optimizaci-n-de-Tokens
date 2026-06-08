@@ -1,0 +1,1 @@
+# dado la respuesta crear la estructura de agentes y el flujo de trabajo, crear un sistema multi-agente que pueda ejecutar el proyecto inventado.
